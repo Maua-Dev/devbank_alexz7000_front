@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import "./styles.css";
-import search from "../../assets/search.png";
-import pencil from "../../assets/pencil.png";
+import search from "@assets/search.png";
+import pencil from "@assets/pencil.png";
 
 interface SearchBarProps {
     loupeIcon: boolean;
@@ -16,7 +15,7 @@ export default function SearchBar({ loupeIcon }: SearchBarProps) {
             />
             <img
                 className={"IconeLupa"}
-                src={loupeIcon ? search : pencil}
+                src={loupeIcon ? (search as string) : (pencil as string)}
                 alt={"ícone de lupa"}
             />
         </div>

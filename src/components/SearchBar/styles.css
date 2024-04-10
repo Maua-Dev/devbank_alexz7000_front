@@ -12,11 +12,10 @@
     outline: none;
 }
 
-
 .IconeLupa {
     position: absolute;
     z-index: 1;
-    top: .5vh;
+    top: 0.5vh;
     right: 10px;
     width: 2.4vw;
     height: 2.4vw;
