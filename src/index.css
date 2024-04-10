@@ -1,8 +1,10 @@
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
     font-synthesis: none;
+    font-family: "Lexend", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -13,5 +15,10 @@ body {
     min-width: 320px;
     min-height: 100vh;
     color: white;
-    background: linear-gradient(to bottom, rgba(4, 24, 51, 1), rgba(4, 36, 79, 1), rgba(21, 69, 128, 1));
+    background: linear-gradient(
+        to bottom,
+        rgba(4, 24, 51, 1),
+        rgba(4, 36, 79, 1),
+        rgba(21, 69, 128, 1)
+    );
 }

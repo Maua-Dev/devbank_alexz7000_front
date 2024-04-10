@@ -1,0 +1,21 @@
+.header-container {
+    margin-right: 9vw;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+    font-family: "Lexend-Regular", "Helvetica", serif;
+    text-shadow: 0 4px 4px #00000040;
+    line-height: 6vw;
+    letter-spacing: 0;
+
+}
+
+p {
+    margin: 0;
+    padding: 0;
+    font-family: "Lexend-Regular", "Helvetica", serif;
+    letter-spacing: 0;
+    white-space: nowrap;
+}
