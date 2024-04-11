@@ -8,20 +8,20 @@ export default function Cards() {
     return (
         <div className={"container-fluid row"}>
             <div className={"col-lg-4 mt-1"}>
-                <div
-                    className={"card card-animation"}
-                    style={{
-                        backgroundColor: "#004f96",
-                        width: "400px",
-                        height: "26vw",
-                        borderColor: "#003D7D",
-                        borderWidth: "20px"
-                    }}
+                <Link
+                    style={{ textDecoration: "none" }}
+                    to={"/Deposit"}
+                    role="button"
                 >
-                    <Link
-                        style={{ textDecoration: "none" }}
-                        to={"/Deposit"}
-                        role="button"
+                    <div
+                        className={"card card-animation"}
+                        style={{
+                            backgroundColor: "#004f96",
+                            width: "400px",
+                            height: "26vw",
+                            borderColor: "#003D7D",
+                            borderWidth: "20px"
+                        }}
                     >
                         <h1 className="text-white text-center">Depositar</h1>
                         <div className="card-body text-center align-content-center">
@@ -32,24 +32,24 @@ export default function Cards() {
                                 alt={"deposit image"}
                             ></img>
                         </div>
-                    </Link>
-                </div>
+                    </div>
+                </Link>
             </div>
             <div className={"col-lg-4 mt-1"}>
-                <div
-                    className={"card card-animation"}
-                    style={{
-                        backgroundColor: "#004f96",
-                        width: "400px",
-                        height: "26vw",
-                        borderColor: "#003D7D",
-                        borderWidth: "20px"
-                    }}
+                <Link
+                    style={{ textDecoration: "none" }}
+                    to={"/Withdraw"}
+                    role="button"
                 >
-                    <Link
-                        style={{ textDecoration: "none" }}
-                        to={"/Withdraw"}
-                        role="button"
+                    <div
+                        className={"card card-animation"}
+                        style={{
+                            backgroundColor: "#004f96",
+                            width: "400px",
+                            height: "26vw",
+                            borderColor: "#003D7D",
+                            borderWidth: "20px"
+                        }}
                     >
                         <h1
                             className="text-white text-center"
@@ -65,24 +65,24 @@ export default function Cards() {
                                 alt={"deposit image"}
                             ></img>
                         </div>
-                    </Link>
-                </div>
+                    </div>
+                </Link>
             </div>
             <div className={"col-lg-4 mt-1"}>
-                <div
-                    className={"card card-animation"}
-                    style={{
-                        backgroundColor: "#004f96",
-                        width: "400px",
-                        height: "26vw",
-                        borderColor: "#003D7D",
-                        borderWidth: "20px"
-                    }}
+                <Link
+                    style={{ textDecoration: "none" }}
+                    to={"/History"}
+                    role="button"
                 >
-                    <Link
-                        style={{ textDecoration: "none" }}
-                        to={"/History"}
-                        role="button"
+                    <div
+                        className={"card card-animation"}
+                        style={{
+                            backgroundColor: "#004f96",
+                            width: "400px",
+                            height: "26vw",
+                            borderColor: "#003D7D",
+                            borderWidth: "20px"
+                        }}
                     >
                         <h1 className="text-white text-center">Histórico</h1>
                         <div className="card-body text-center align-content-center">
@@ -93,8 +93,8 @@ export default function Cards() {
                                 alt={"deposit image"}
                             ></img>
                         </div>
-                    </Link>
-                </div>
+                    </div>
+                </Link>
             </div>
         </div>
     );

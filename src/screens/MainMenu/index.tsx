@@ -1,6 +1,6 @@
 import Header from "@components/Header";
 import SearchBar from "@components/SearchBar";
-import Cards from "@components//Cards";
+import Cards from "@components/Cards";
 
 export default function MainMenu() {
     return (
