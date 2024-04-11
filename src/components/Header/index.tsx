@@ -1,4 +1,5 @@
 import "./styles.css";
+import { Link } from "react-router-dom";
 
 interface HeaderProps {
     boxText: boolean;
@@ -20,12 +21,14 @@ export default function Header({ boxText }: HeaderProps) {
                     minHeight: "10vw"
                 }}
             >
-                <img
-                    className="img-fluid ms-3"
-                    src="/bank.png"
-                    style={{ maxWidth: "64px", maxHeight: "64px" }}
-                    alt="DevBank_logo"
-                />
+                <Link style={{ textDecoration: "none" }} to={"/"} role="button">
+                    <img
+                        className="img-fluid ms-3"
+                        src="/bank.png"
+                        style={{ maxWidth: "64px", maxHeight: "64px" }}
+                        alt="DevBank_logo"
+                    />
+                </Link>
                 <div className={"flex-column w-100"}>
                     <div className="d-flex flex-column header-container">
                         <h1
@@ -54,7 +57,7 @@ export default function Header({ boxText }: HeaderProps) {
                     }
                     style={{
                         backgroundColor: "#D7EFF2",
-                        height: "5.5vw",
+                        height: "7vw",
                         width: "16vw",
                         outline: "2px solid #39CBC2",
                         left: "80vw",
@@ -65,7 +68,7 @@ export default function Header({ boxText }: HeaderProps) {
                         <p
                             key={index}
                             className="text-start text-black"
-                            style={{ fontSize: "0.6vw" }}
+                            style={{ fontSize: "1vw" }}
                         >
                             {info.label}: {info.value}
                         </p>

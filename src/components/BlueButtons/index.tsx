@@ -13,7 +13,8 @@ export default function BlueButtons({ text, screenName }: BlueButtonsProps) {
             role="button"
         >
             <button
-                className=" rounded-3 border-0 text-white text-wrap text-break"
+                className="rounded-3  border-0 text-white text-wrap text-break"
+                type={"button"}
                 style={{
                     backgroundColor: "#0073E6",
                     width: "15%",

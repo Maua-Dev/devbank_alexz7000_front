@@ -1,21 +1,25 @@
 .CampoTexto {
-    height: 3vw;
+    height: 3.5vw;
     padding: 12px 16px;
     border: 2px solid #c98cf1;
     background: transparent;
-    width: 39vw;
+    width: 44vw;
     color: #ffffff;
-    font-size: 1.25vw;
+    font-size: 1.5vw;
 }
 
 .CampoTexto:focus {
     outline: none;
 }
 
+.CampoTexto::placeholder {
+    color: white;
+}
+
 .IconeLupa {
     position: absolute;
     z-index: 1;
-    top: 0.5vh;
+    top: 0.8vh;
     right: 10px;
     width: 2.4vw;
     height: 2.4vw;
