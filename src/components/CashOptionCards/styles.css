@@ -1,0 +1,28 @@
+.card-animation {
+    background-color: #004f96;
+    width: 400px;
+    height: 26vw;
+    border-color: #003D7D;
+    border-width: 20px;
+    transition: transform 0.3s ease;
+}
+
+.card-animation img {
+    transition: transform 0.2s ease;
+}
+
+.card-animation:hover img {
+    transform: scale(1.1);
+}
+
+.card-animation h1 {
+    transition: transform 0.2s ease;
+}
+
+.card-animation:hover h1 {
+    transform: scale(1.1);
+}
+
+.card-animation:hover {
+    transform: translateY(-10px);
+}

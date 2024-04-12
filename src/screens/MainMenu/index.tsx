@@ -1,6 +1,6 @@
 import Header from "@components/Header";
 import SearchBar from "@components/SearchBar";
-import Cards from "@components/Cards";
+import CashOptionCards from "@components/CashOptionCards";
 
 export default function MainMenu() {
     return (
@@ -13,7 +13,7 @@ export default function MainMenu() {
                 style={{ height: "75vh" }}
             >
                 <div className={"position-relative"}>
-                    <Cards />
+                    <CashOptionCards />
                 </div>
                 <div className={"position-fixed"} style={{ bottom: "50px" }}>
                     <SearchBar loupeIcon={false} />

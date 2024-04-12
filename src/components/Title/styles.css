@@ -1,0 +1,18 @@
+.custom-div h1 {
+    margin: 0 0 0 -6%;
+    padding: 0;
+    font-family: "Lexend-Regular", "Helvetica", serif;
+    text-shadow: 0 4px 4px #00000040;
+    line-height: 6vw;
+    letter-spacing: 0;
+    color: #b7b6ff;
+    font-size: 6.5vw;
+}
+
+.custom-div img {
+    transition: transform 0.2s ease;
+}
+
+.custom-div:hover img {
+    transform: scale(1.1);
+}

@@ -1,7 +1,28 @@
-.card-animation {
-    transition: transform 0.3s ease;
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Oculta qualquer conteúdo que ultrapasse a altura da viewport */
 }
 
-.card-animation:hover{
-    transform: translateY(-10px);
+.card-container {
+    max-height: 80vh; /* Altura máxima para a lista de cards */
+    overflow-y: auto; /* Habilita rolagem vertical quando necessário */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card {
+    width: 95%;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #003d7d;
+    color: #fff;
+    border-radius: 8px;
+}
+
+.card p {
+    margin: 0;
+    text-align: justify;
 }

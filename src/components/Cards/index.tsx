@@ -1,101 +1,65 @@
-import { Link } from "react-router-dom";
-import "./styles.css";
-import deposit from "@assets/deposit.png";
-import withdraw from "@assets/withdraw.png";
-import history from "@assets/money-back-guarantee.png";
-
 export default function Cards() {
+    const cardsData = [
+        {
+            text:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut\n" +
+                "                        enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor\n" +
+                "                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,\n" +
+                "                        sunt in culpa qui officia deserunt mollit anim id est laborum."
+        },
+        {
+            text:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut\n" +
+                "                        enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor\n" +
+                "                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,\n" +
+                "                        sunt in culpa qui officia deserunt mollit anim id est laborum."
+        },
+        {
+            text:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut\n" +
+                "                        enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor\n" +
+                "                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,\n" +
+                "                        sunt in culpa qui officia deserunt mollit anim id est laborum."
+        },
+        {
+            text:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut\n" +
+                "                        enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor\n" +
+                "                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,\n" +
+                "                        sunt in culpa qui officia deserunt mollit anim id est laborum."
+        },
+        {
+            text:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut\n" +
+                "                        enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor\n" +
+                "                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,\n" +
+                "                        sunt in culpa qui officia deserunt mollit anim id est laborum."
+        }
+    ];
+
     return (
-        <div className={"container-fluid row"}>
-            <div className={"col-lg-4 mt-1"}>
-                <Link
-                    style={{ textDecoration: "none" }}
-                    to={"/Deposit"}
-                    role="button"
+        <div
+            className="container-fluid flex-column align-items-center d-flex mb-4"
+            style={{
+                maxHeight: "400px",
+                overflowY: "auto"
+            }}
+        >
+            {cardsData.map((card, index) => (
+                <div
+                    className="card mb-4"
+                    style={{ width: "95%", backgroundColor: "#003D7D" }}
                 >
-                    <div
-                        className={"card card-animation"}
-                        style={{
-                            backgroundColor: "#004f96",
-                            width: "400px",
-                            height: "26vw",
-                            borderColor: "#003D7D",
-                            borderWidth: "20px"
-                        }}
-                    >
-                        <h1 className="text-white text-center">Depositar</h1>
-                        <div className="card-body text-center align-content-center">
-                            <img
-                                className={"img-fluid card-img"}
-                                style={{ maxWidth: "8vw", maxHeight: "8vw" }}
-                                src={deposit as string}
-                                alt={"deposit image"}
-                            ></img>
-                        </div>
-                    </div>
-                </Link>
-            </div>
-            <div className={"col-lg-4 mt-1"}>
-                <Link
-                    style={{ textDecoration: "none" }}
-                    to={"/Withdraw"}
-                    role="button"
-                >
-                    <div
-                        className={"card card-animation"}
-                        style={{
-                            backgroundColor: "#004f96",
-                            width: "400px",
-                            height: "26vw",
-                            borderColor: "#003D7D",
-                            borderWidth: "20px"
-                        }}
-                    >
-                        <h1
-                            className="text-white text-center"
-                            style={{ backgroundColor: "#004f96" }}
+                    <div className="card-body text-start p-3 w-75">
+                        <p
+                            key={index}
+                            className="card-text text-white text-break text-wrap"
                         >
-                            Saque
-                        </h1>
-                        <div className="card-body text-center align-content-center">
-                            <img
-                                className={"img-fluid card-img "}
-                                style={{ maxWidth: "8vw", maxHeight: "8vw" }}
-                                src={withdraw as string}
-                                alt={"deposit image"}
-                            ></img>
-                        </div>
+                            {card.text}
+                        </p>
                     </div>
-                </Link>
-            </div>
-            <div className={"col-lg-4 mt-1"}>
-                <Link
-                    style={{ textDecoration: "none" }}
-                    to={"/History"}
-                    role="button"
-                >
-                    <div
-                        className={"card card-animation"}
-                        style={{
-                            backgroundColor: "#004f96",
-                            width: "400px",
-                            height: "26vw",
-                            borderColor: "#003D7D",
-                            borderWidth: "20px"
-                        }}
-                    >
-                        <h1 className="text-white text-center">Histórico</h1>
-                        <div className="card-body text-center align-content-center">
-                            <img
-                                className={"img-fluid card-img"}
-                                style={{ maxWidth: "8vw", maxHeight: "8vw" }}
-                                src={history as string}
-                                alt={"deposit image"}
-                            ></img>
-                        </div>
-                    </div>
-                </Link>
-            </div>
+                </div>
+            ))}
         </div>
     );
 }

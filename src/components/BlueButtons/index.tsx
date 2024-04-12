@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "./styles.css";
 
 interface BlueButtonsProps {
     text: string;
@@ -7,26 +8,19 @@ interface BlueButtonsProps {
 
 export default function BlueButtons({ text, screenName }: BlueButtonsProps) {
     return (
-        <Link
-            className={"d-flex justify-content-center"}
-            to={screenName}
-            role="button"
-        >
-            <button
-                className="rounded-3  border-0 text-white text-wrap text-break"
-                type={"button"}
-                style={{
-                    backgroundColor: "#0073E6",
-                    width: "15%",
-                    height: "7vh",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    fontSize: "calc(1vw + 0.5em)",
-                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
-                }}
+        <div className={"d-flex justify-content-center"}>
+            <Link
+                style={{ textDecoration: "none", width: "15%" }}
+                to={screenName}
+                role="button"
             >
-                {text}
-            </button>
-        </Link>
+                <button
+                    className="rounded-3 button-animation border-0 text-white text-wrap text-break"
+                    type={"button"}
+                >
+                    {text}
+                </button>
+            </Link>
+        </div>
     );
 }

@@ -23,7 +23,7 @@ export default function Header({ boxText }: HeaderProps) {
             >
                 <Link style={{ textDecoration: "none" }} to={"/"} role="button">
                     <img
-                        className="img-fluid ms-3"
+                        className="img-fluid img-animation ms-3"
                         src="/bank.png"
                         style={{ maxWidth: "64px", maxHeight: "64px" }}
                         alt="DevBank_logo"
@@ -32,7 +32,9 @@ export default function Header({ boxText }: HeaderProps) {
                 <div className={"flex-column w-100"}>
                     <div className="d-flex flex-column header-container">
                         <h1
-                            className={"text-center position-relative mb-1"}
+                            className={
+                                "text-center shadow-h1 position-relative mb-1"
+                            }
                             style={{ fontSize: "8vw" }}
                         >
                             DevBank
