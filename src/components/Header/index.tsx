@@ -15,9 +15,8 @@ type UserData = {
 };
 
 export default function Header({ boxText }: HeaderProps) {
-    const { data, isFetching } = useAPI<UserData[]>("");
+    const { data, isFetching } = useAPI<UserData>("");
     const dataArray: UserData[] = data ? [data] : [];
-
     return (
         <>
             {isFetching && <Loading />}
