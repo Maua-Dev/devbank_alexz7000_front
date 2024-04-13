@@ -1,10 +1,37 @@
 import "./styles.css";
+import { useState } from "react";
+import useAPI from "../../hooks/useAPI.ts";
+import Loading from "@components/Loading";
 
 interface ATMScreenProps {
     isDeposit: boolean;
 }
+let nota2 = 0,
+    nota5 = 0,
+    nota10 = 0,
+    nota20 = 0,
+    nota50 = 0,
+    nota100 = 0,
+    nota200 = 0,
+    arrayLastNumber: number[] = [];
+
+type UserData = {
+    name: string;
+    agency: string;
+    account: string;
+    current_balance: number;
+};
 
 export default function ATMScreen({ isDeposit }: ATMScreenProps) {
+    const { data, isFetching } = useAPI<UserData>("");
+    const dataArray: UserData[] = data ? [data] : [];
+
+    const [text, setText] = useState<string>("0");
+
+    function showNumbersOnScreen(newText: string) {
+        setText(newText);
+    }
+
     const dadosDosBotoes = [
         {
             texto1: "2 R$",
@@ -23,8 +50,66 @@ export default function ATMScreen({ isDeposit }: ATMScreenProps) {
         }
     ];
 
+    function NaNButtons(value: string) {
+        if (value === "CONFIRMA") {
+            // fazer a requisição post
+        } else if (value === "CORRIGE") {
+            const lastNumber = arrayLastNumber[arrayLastNumber.length - 1];
+            if (lastNumber === 2) nota2 = nota2 - 1;
+            else if (lastNumber === 5) nota5 = nota5 - 1;
+            else if (lastNumber === 10) nota10 = nota10 - 1;
+            else if (lastNumber === 20) nota20 = nota20 - 1;
+            else if (lastNumber === 50) nota50 = nota50 - 1;
+            else if (lastNumber === 100) nota100 = nota100 - 1;
+            else if (lastNumber === 200) nota200 = nota200 - 1;
+            arrayLastNumber.pop();
+            showNumbersOnScreen(calculateOperations().toString());
+        } else if (value === "CANCELA") {
+            arrayLastNumber = [];
+            nota2 = 0;
+            nota5 = 0;
+            nota10 = 0;
+            nota20 = 0;
+            nota50 = 0;
+            nota100 = 0;
+            nota200 = 0;
+            showNumbersOnScreen(calculateOperations().toString());
+        } else alert("Operação inválida");
+    }
+
+    function buttonClick(value: number | string) {
+        if (value as number) arrayLastNumber.push(addNumber(value as number));
+        else if (value as string) NaNButtons(value as string);
+        showNumbersOnScreen(calculateOperations().toString());
+    }
+
+    function calculateOperations() {
+        return (
+            nota2 * 2 +
+            nota5 * 5 +
+            nota10 * 10 +
+            nota20 * 20 +
+            nota50 * 50 +
+            nota100 * 100 +
+            nota200 * 200
+        );
+    }
+
+    function addNumber(value: number) {
+        if (value === 2) nota2 = nota2 + 1;
+        else if (value === 5) nota5 = nota5 + 1;
+        else if (value === 10) nota10 = nota10 + 1;
+        else if (value === 20) nota20 = nota20 + 1;
+        else if (value === 50) nota50 = nota50 + 1;
+        else if (value === 100) nota100 = nota100 + 1;
+        else if (value === 200) nota200 = nota200 + 1;
+        else alert("Operação Inválida");
+        return value;
+    }
+
     return (
         <>
+            {isFetching && <Loading />}
             <div
                 className={
                     "mx-auto flex-column justify-content-center align-content-center align-items-center d-flex w-75"
@@ -36,17 +121,20 @@ export default function ATMScreen({ isDeposit }: ATMScreenProps) {
                     style={{ backgroundColor: "rgba(0, 115, 230, 0.25)" }}
                 >
                     <div className={"col-sm-4 "}>
-                        <h3
-                            className={
-                                "text-start align-content-center rounded-3 h-100 w-75"
-                            }
-                            style={{
-                                backgroundColor: "rgba(0, 115, 230, 0.3)",
-                                padding: "18px 18px 14px 18px"
-                            }}
-                        >
-                            Saldo Atual: 1000,00
-                        </h3>
+                        {dataArray?.map((info, index) => (
+                            <h3
+                                key={"h3 " + index}
+                                className={
+                                    "text-start align-content-center rounded-3 h-100 w-75"
+                                }
+                                style={{
+                                    backgroundColor: "rgba(0, 115, 230, 0.3)",
+                                    padding: "18px 18px 14px 18px"
+                                }}
+                            >
+                                Saldo Atual: {info.current_balance}
+                            </h3>
+                        ))}
                     </div>
                     <div className={"col-sm-4 align-content-center"}>
                         <h3
@@ -58,7 +146,7 @@ export default function ATMScreen({ isDeposit }: ATMScreenProps) {
                     </div>
                     <div className={"col-sm-4 align-content-center"}>
                         <h3 className={"text-end"} style={{ color: "#0073E6" }}>
-                            Quantidade Depositada: 000
+                            Quantidade Final: 000
                         </h3>
                     </div>
                 </div>
@@ -66,7 +154,8 @@ export default function ATMScreen({ isDeposit }: ATMScreenProps) {
                     className={"text-black w-100 text-center"}
                     style={{ fontSize: "64px" }}
                 >
-                    {isDeposit ? "" : "-"}520 R$
+                    {isDeposit ? "" : "-"}
+                    {text} R$
                 </h1>
             </div>
             <div
@@ -74,32 +163,13 @@ export default function ATMScreen({ isDeposit }: ATMScreenProps) {
                     "container-fluid w-100 text-center mt-3 border: 2px solid #c98cf1;"
                 }
             >
-                <div style={{ position: "absolute", left: "10px" }}>
-                    <select className={"rounded-3 custom-select"}>
-                        <option value="Selecione">Selecione</option>
-                        <option value="2 R$">2 R$</option>
-                        <option value="5 R$">5 R$</option>
-                        <option value="10 R$">10 R$</option>
-                        <option value="20 R$">20 R$</option>
-                        <option value="50 R$">50 R$</option>
-                        <option value="100 R$">100 R$</option>
-                        <option value="200 R$">200 R$</option>
-                    </select>
-                    <input
-                        className={"rounded-3 border-0 ms-2"}
-                        type="number"
-                        id="quantity"
-                        name="quantity"
-                        min="0"
-                        max="100"
-                        placeholder={"x"}
-                        step="1"
-                    />
-                </div>
                 <div className={"mb-4"}>
                     {dadosDosBotoes.slice(0, 3).map((dadosDosBotao, index) => (
                         <button
-                            key={index}
+                            key={"botão1 " + index}
+                            onClick={() =>
+                                buttonClick(parseInt(dadosDosBotao.texto1))
+                            }
                             className={
                                 "atm-button rounded-3 border-0 text-wrap text-break ms-3"
                             }
@@ -111,7 +181,10 @@ export default function ATMScreen({ isDeposit }: ATMScreenProps) {
                 <div className={"mb-4"}>
                     {dadosDosBotoes.slice(0, 2).map((dadosDosBotao, index) => (
                         <button
-                            key={index}
+                            key={"botão2" + index}
+                            onClick={() =>
+                                buttonClick(parseInt(dadosDosBotao.texto2))
+                            }
                             className={
                                 "atm-button rounded-3 border-0 text-wrap text-break ms-3"
                             }
@@ -120,6 +193,7 @@ export default function ATMScreen({ isDeposit }: ATMScreenProps) {
                         </button>
                     ))}
                     <button
+                        onClick={() => NaNButtons("CORRIGE")}
                         className={
                             "bg-warning atm-button rounded-3 border-0 text-wrap text-break ms-3"
                         }
@@ -130,7 +204,10 @@ export default function ATMScreen({ isDeposit }: ATMScreenProps) {
                 <div className={"mb-4"}>
                     {dadosDosBotoes.slice(0, 2).map((dadosDosBotao, index) => (
                         <button
-                            key={index}
+                            key={"botão3 " + index}
+                            onClick={() =>
+                                buttonClick(parseInt(dadosDosBotao.texto3))
+                            }
                             className={
                                 "atm-button rounded-3 border-0 text-wrap text-break ms-3"
                             }
@@ -139,6 +216,7 @@ export default function ATMScreen({ isDeposit }: ATMScreenProps) {
                         </button>
                     ))}
                     <button
+                        onClick={() => NaNButtons("CANCELA")}
                         className={
                             "bg-danger atm-button rounded-3 border-0 text-wrap text-break ms-3"
                         }
@@ -148,6 +226,7 @@ export default function ATMScreen({ isDeposit }: ATMScreenProps) {
                 </div>
                 <div>
                     <button
+                        onClick={() => NaNButtons("CONFIRMA")}
                         className={
                             "atm-button rounded-3 border-0 text-wrap text-break"
                         }
