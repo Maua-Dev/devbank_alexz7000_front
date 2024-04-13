@@ -1,13 +1,14 @@
 import "./styles.css";
 import { Link } from "react-router-dom";
-import useAPI from "../../hooks/useAPI.ts";
+import { useQuery } from "react-query";
 import Loading from "@components/Loading";
+import axios from "axios";
 
 interface HeaderProps {
     boxText: boolean;
 }
 
-type UserData = {
+export type UserData = {
     name: string;
     agency: string;
     account: string;
@@ -15,7 +16,18 @@ type UserData = {
 };
 
 export default function Header({ boxText }: HeaderProps) {
-    const { data, isFetching } = useAPI<UserData>("");
+    const { data, isFetching } = useQuery<UserData>(
+        "userDataAWS",
+        async () => {
+            const response = await axios.get(
+                "https://r2tcz6zsokynb72jb6o4ffd5nm0ryfyz.lambda-url.us-west-2.on.aws"
+            );
+            return response.data as UserData;
+        },
+        {
+            staleTime: 1000 * 60 // 1 minuto
+        }
+    );
     const dataArray: UserData[] = data ? [data] : [];
     return (
         <>

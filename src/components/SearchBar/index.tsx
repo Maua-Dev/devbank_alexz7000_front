@@ -13,10 +13,13 @@ export default function SearchBar({ loupeIcon }: SearchBarProps) {
             {loupeIcon ? (
                 <>
                     <input
+                        readOnly={true}
                         className={
                             "CampoTexto rounded-3 text-center text-white"
                         }
-                        placeholder={"Digite aqui URL da sua API..."}
+                        placeholder={
+                            "https://r2tcz6zsokynb72jb6o4ffd5nm0ryfyz.lambda-url.us-west-2.on.aws"
+                        }
                     />
 
                     <img
@@ -28,15 +31,15 @@ export default function SearchBar({ loupeIcon }: SearchBarProps) {
             ) : (
                 <Link style={{ textDecoration: "none" }} to={"/"} role="button">
                     <input
+                        readOnly={true}
                         className={
                             "CampoTexto rounded-3 text-center text-white"
                         }
                         placeholder={
-                            "Aqui deverá aparecer a URL da API do usuário"
+                            "https://r2tcz6zsokynb72jb6o4ffd5nm0ryfyz.lambda-url.us-west-2.on.aws"
                         }
                         style={{ cursor: "pointer" }}
                     />
-
                     <img
                         className={"IconeLupa"}
                         src={pencil as string}

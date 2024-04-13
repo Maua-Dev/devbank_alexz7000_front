@@ -1,11 +1,14 @@
 import "./styles.css";
 import { useState } from "react";
-import useAPI from "../../hooks/useAPI.ts";
+import { useQuery } from "react-query";
+import axios from "axios";
+import { UserData } from "@components/Header";
 import Loading from "@components/Loading";
 
 interface ATMScreenProps {
     isDeposit: boolean;
 }
+
 let nota2 = 0,
     nota5 = 0,
     nota10 = 0,
@@ -15,16 +18,39 @@ let nota2 = 0,
     nota200 = 0,
     arrayLastNumber: number[] = [];
 
-type UserData = {
-    name: string;
-    agency: string;
-    account: string;
-    current_balance: number;
-};
-
 export default function ATMScreen({ isDeposit }: ATMScreenProps) {
-    const { data, isFetching } = useAPI<UserData>("");
+    const { data, isFetching } = useQuery<UserData>(
+        "userDataAWS",
+        async () => {
+            const response = await axios.get(
+                "https://r2tcz6zsokynb72jb6o4ffd5nm0ryfyz.lambda-url.us-west-2.on.aws"
+            );
+            return response.data as UserData;
+        },
+        {
+            staleTime: 1000 * 60 // 1 minuto
+        }
+    );
     const dataArray: UserData[] = data ? [data] : [];
+
+    const postTransaction = async (transactionData: object) => {
+        return axios
+            .post(
+                `https://r2tcz6zsokynb72jb6o4ffd5nm0ryfyz.lambda-url.us-west-2.on.aws${
+                    isDeposit ? "/deposit" : "/withdraw"
+                }`,
+                transactionData
+            )
+            .then((response) => {
+                window.location.reload();
+                return response.data as UserData;
+            })
+            .catch((error) => {
+                console.error("Erro ao fazer o post:", error);
+                alert("Erro ao fazer o post");
+                throw error;
+            });
+    };
 
     const [text, setText] = useState<string>("0");
 
@@ -52,7 +78,16 @@ export default function ATMScreen({ isDeposit }: ATMScreenProps) {
 
     function NaNButtons(value: string) {
         if (value === "CONFIRMA") {
-            // fazer a requisição post
+            const transactionData = {
+                "2": nota2,
+                "5": nota5,
+                "10": nota10,
+                "20": nota20,
+                "50": nota50,
+                "100": nota100,
+                "200": nota200
+            };
+            void (async () => await postTransaction(transactionData))();
         } else if (value === "CORRIGE") {
             const lastNumber = arrayLastNumber[arrayLastNumber.length - 1];
             if (lastNumber === 2) nota2 = nota2 - 1;
