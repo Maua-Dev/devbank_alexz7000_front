@@ -2,12 +2,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* Oculta qualquer conteúdo que ultrapasse a altura da viewport */
+    overflow: hidden;
 }
 
 .card-container {
-    max-height: 80vh; /* Altura máxima para a lista de cards */
-    overflow-y: auto; /* Habilita rolagem vertical quando necessário */
+    max-height: 80vh;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     align-items: center;

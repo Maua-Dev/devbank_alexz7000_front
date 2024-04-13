@@ -1,19 +1,26 @@
 import "./styles.css";
 import { Link } from "react-router-dom";
+import useAPI from "../../hooks/useAPI.ts";
+import Loading from "@components/Loading";
 
 interface HeaderProps {
     boxText: boolean;
 }
 
+type UserData = {
+    name: string;
+    agency: string;
+    account: string;
+    current_balance: number;
+};
+
 export default function Header({ boxText }: HeaderProps) {
-    const dadosConta = [
-        { label: "Nome", value: "Alessandro Lima" },
-        { label: "Agência", value: "0000" },
-        { label: "Conta", value: "00000-0" },
-        { label: "Saldo", value: "1000,00" }
-    ];
+    const { data, isFetching } = useAPI<UserData[]>("");
+    const dataArray: UserData[] = data ? [data] : [];
+
     return (
         <>
+            {isFetching && <Loading />}
             <div
                 className="container-fluid position-relative d-flex align-items-center"
                 style={{
@@ -66,14 +73,37 @@ export default function Header({ boxText }: HeaderProps) {
                         top: "2vw"
                     }}
                 >
-                    {dadosConta.map((info, index) => (
-                        <p
-                            key={index}
-                            className="text-start text-black"
-                            style={{ fontSize: "1vw" }}
-                        >
-                            {info.label}: {info.value}
-                        </p>
+                    {dataArray?.map((info, index) => (
+                        <div key={"diva " + index}>
+                            <p
+                                key={"dataArray " + index}
+                                className="text-start text-black"
+                                style={{ fontSize: "1vw" }}
+                            >
+                                Nome: {info.name}
+                            </p>
+                            <p
+                                key={"Agency " + index}
+                                className="text-start text-black"
+                                style={{ fontSize: "1vw" }}
+                            >
+                                Agência: {info.agency}
+                            </p>
+                            <p
+                                key={"Account " + index}
+                                className="text-start text-black"
+                                style={{ fontSize: "1vw" }}
+                            >
+                                Conta: {info.account}
+                            </p>
+                            <p
+                                key={"Current Balance" + index}
+                                className="text-start text-black"
+                                style={{ fontSize: "1vw" }}
+                            >
+                                Saldo: {info.current_balance}
+                            </p>
+                        </div>
                     ))}
                 </div>
             )}

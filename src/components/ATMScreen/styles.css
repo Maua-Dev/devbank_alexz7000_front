@@ -1,5 +1,5 @@
 .atm-button {
-    background-color: #2F48CB;
+    background-color: #2f48cb;
     white-space: nowrap;
     width: 10%;
     height: 6vh;
@@ -39,7 +39,7 @@
 }
 
 .custom-select::after {
-    content: '\25BC'; /* Unicode para a seta para baixo */
+    content: "\25BC";
     position: absolute;
     top: 50%;
     right: 12px;
