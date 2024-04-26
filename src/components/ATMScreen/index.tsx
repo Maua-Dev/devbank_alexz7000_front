@@ -19,6 +19,7 @@ let nota2 = 0,
     arrayLastNumber: number[] = [];
 
 export default function ATMScreen({ isDeposit }: ATMScreenProps) {
+    /* eslint-disable */
     const { data, isFetching } = useQuery<UserData>(
         "userDataAWS",
         async () => {
@@ -32,6 +33,9 @@ export default function ATMScreen({ isDeposit }: ATMScreenProps) {
         }
     );
     const dataArray: UserData[] = data ? [data] : [];
+    const user_current_balance = dataArray.map(
+        (user_data) => user_data.current_balance as number
+    );
 
     const postTransaction = async (transactionData: object) => {
         return axios
@@ -46,11 +50,15 @@ export default function ATMScreen({ isDeposit }: ATMScreenProps) {
                 return response.data as UserData;
             })
             .catch((error) => {
-                console.error("Erro ao fazer o post:", error);
-                alert("Erro ao fazer o post");
-                throw error;
+                if (error.response && error.status === 403)
+                    isDeposit
+                        ? alert("Depósito Suspeito")
+                        : alert("Saldo insuficiente para transação");
+                else if (error.response && error.status === 404)
+                    alert("API não encontrada");
             });
     };
+    /* eslint-disable */
 
     const [text, setText] = useState<string>("0");
 
@@ -76,6 +84,17 @@ export default function ATMScreen({ isDeposit }: ATMScreenProps) {
         }
     ];
 
+    function clearAllNotas() {
+        arrayLastNumber = [];
+        nota2 = 0;
+        nota5 = 0;
+        nota10 = 0;
+        nota20 = 0;
+        nota50 = 0;
+        nota100 = 0;
+        nota200 = 0;
+    }
+
     function NaNButtons(value: string) {
         if (value === "CONFIRMA") {
             const transactionData = {
@@ -100,14 +119,7 @@ export default function ATMScreen({ isDeposit }: ATMScreenProps) {
             arrayLastNumber.pop();
             showNumbersOnScreen(calculateOperations().toString());
         } else if (value === "CANCELA") {
-            arrayLastNumber = [];
-            nota2 = 0;
-            nota5 = 0;
-            nota10 = 0;
-            nota20 = 0;
-            nota50 = 0;
-            nota100 = 0;
-            nota200 = 0;
+            clearAllNotas();
             showNumbersOnScreen(calculateOperations().toString());
         } else alert("Operação inválida");
     }
@@ -119,15 +131,38 @@ export default function ATMScreen({ isDeposit }: ATMScreenProps) {
     }
 
     function calculateOperations() {
-        return (
+        let calculateNewBalance =
             nota2 * 2 +
             nota5 * 5 +
             nota10 * 10 +
             nota20 * 20 +
             nota50 * 50 +
             nota100 * 100 +
-            nota200 * 200
-        );
+            nota200 * 200;
+        if (user_current_balance[0] === 0) {
+            if (!isDeposit && user_current_balance[0] === 0) {
+                clearAllNotas();
+                calculateNewBalance = 0;
+                console.log(user_current_balance[0]);
+                console.log(calculateNewBalance);
+                return calculateNewBalance;
+            }
+            return calculateNewBalance;
+        } else if (!isDeposit && user_current_balance[0] > calculateNewBalance)
+            return calculateNewBalance;
+        else if (isDeposit) {
+            if (calculateNewBalance * 2 >= user_current_balance[0]) {
+                console.log(
+                    calculateNewBalance +
+                        " - " +
+                        arrayLastNumber[0] +
+                        " = " +
+                        (calculateNewBalance - arrayLastNumber[0])
+                );
+                return calculateNewBalance;
+            } else return calculateNewBalance;
+        }
+        return 0;
     }
 
     function addNumber(value: number) {

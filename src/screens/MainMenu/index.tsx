@@ -15,7 +15,10 @@ export default function MainMenu() {
                 <div className={"position-relative"}>
                     <CashOptionCards />
                 </div>
-                <div className={"position-fixed"} style={{ bottom: "50px" }}>
+                <div
+                    className={"position-fixed bottom-0 mb-5"}
+                    style={{ bottom: "50px" }}
+                >
                     <SearchBar loupeIcon={false} />
                 </div>
             </div>

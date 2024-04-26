@@ -30,7 +30,7 @@ export default function Header({ boxText }: HeaderProps) {
     );
     const dataArray: UserData[] = data ? [data] : [];
     return (
-        <>
+        <div className={"position-relative"}>
             {isFetching && <Loading />}
             <div
                 className="container-fluid position-relative d-flex align-items-center"
@@ -58,7 +58,7 @@ export default function Header({ boxText }: HeaderProps) {
                             DevBank
                         </h1>
                         <p
-                            className={"position-fixed pt-2"}
+                            className={"position-absolute pt-2"}
                             style={{
                                 fontSize: "12px",
                                 left: "64.25vw",
@@ -73,7 +73,7 @@ export default function Header({ boxText }: HeaderProps) {
             {boxText && (
                 <div
                     className={
-                        "container-fluid position-fixed rounded-3 z-1 pt-1"
+                        "container-fluid position-absolute rounded-3 z-1 pt-1"
                     }
                     style={{
                         backgroundColor: "#D7EFF2",
@@ -118,6 +118,6 @@ export default function Header({ boxText }: HeaderProps) {
                     ))}
                 </div>
             )}
-        </>
+        </div>
     );
 }
