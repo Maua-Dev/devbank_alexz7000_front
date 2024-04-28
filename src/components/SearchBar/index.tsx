@@ -2,30 +2,57 @@ import "./styles.css";
 import search from "@assets/search.png";
 import pencil from "@assets/pencil.png";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { api, useApiResult } from "../../services/queryClient.ts";
+import BlueButtons from "@components/BlueButtons";
 
 interface SearchBarProps {
     loupeIcon: boolean;
 }
 
 export default function SearchBar({ loupeIcon }: SearchBarProps) {
+    const [url, setUrl] = useState("");
+    const [screenName, setScreenName] = useState("");
+
+    /* eslint-disable */
+    function handleUrl(event: any) {
+        setUrl(event?.target.value);
+    }
+
+    function verificarURL() {
+        if (url === "") {
+            alert("Este campo está vazio, por favor insira uma URL válida");
+        } else if (url.startsWith("https://")) {
+            api(url).then(() => setScreenName("/MainMenu"));
+        } else {
+            alert("URL inválida, por favor insira uma URL válida");
+        }
+    }
+
+    /* eslint-enable */
     return (
         <div className={"position-relative d-inline-block"}>
             {loupeIcon ? (
                 <>
                     <input
-                        readOnly={true}
                         className={
                             "CampoTexto rounded-3 text-center text-white"
                         }
-                        placeholder={
-                            "https://r2tcz6zsokynb72jb6o4ffd5nm0ryfyz.lambda-url.us-west-2.on.aws"
-                        }
+                        onChange={handleUrl}
+                        value={url}
+                        placeholder={"Digite aqui a URL da sua API..."}
                     />
 
                     <img
                         className={"IconeLupa"}
                         src={search as string}
                         alt={"ícone de lupa"}
+                    />
+                    <BlueButtons
+                        onClick={() => verificarURL()}
+                        className={"mt-5 aumentar-botao"}
+                        text={"Entrar"}
+                        screenName={screenName}
                     />
                 </>
             ) : (
@@ -36,7 +63,7 @@ export default function SearchBar({ loupeIcon }: SearchBarProps) {
                             "CampoTexto rounded-3 text-center text-white"
                         }
                         placeholder={
-                            "https://r2tcz6zsokynb72jb6o4ffd5nm0ryfyz.lambda-url.us-west-2.on.aws"
+                            `${useApiResult()}` // eslint-disable-line
                         }
                         style={{ cursor: "pointer" }}
                     />

@@ -4,9 +4,16 @@ import "./styles.css";
 interface BlueButtonsProps {
     text: string;
     screenName: string;
+    className?: string;
+    onClick?: () => void;
 }
 
-export default function BlueButtons({ text, screenName }: BlueButtonsProps) {
+export default function BlueButtons({
+    text,
+    screenName,
+    className,
+    onClick
+}: BlueButtonsProps) {
     return (
         <div className={"d-flex justify-content-center"}>
             <Link
@@ -15,7 +22,8 @@ export default function BlueButtons({ text, screenName }: BlueButtonsProps) {
                 role="button"
             >
                 <button
-                    className="rounded-3 button-animation border-0 text-white text-wrap text-break"
+                    onClick={() => (onClick ? onClick() : "")}
+                    className={`${className} rounded-3 button-animation border-0 text-white text-wrap text-break`}
                     type={"button"}
                 >
                     {text}

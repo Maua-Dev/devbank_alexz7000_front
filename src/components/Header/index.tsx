@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import Loading from "@components/Loading";
 import axios from "axios";
+import { useApiResult } from "../../services/queryClient.ts";
 
 interface HeaderProps {
     boxText: boolean;
@@ -16,11 +17,12 @@ export type UserData = {
 };
 
 export default function Header({ boxText }: HeaderProps) {
+    console.log(useApiResult());
     const { data, isFetching } = useQuery<UserData>(
         "userDataAWS",
         async () => {
             const response = await axios.get(
-                "https://r2tcz6zsokynb72jb6o4ffd5nm0ryfyz.lambda-url.us-west-2.on.aws"
+                `${useApiResult()}` // eslint-disable-line
             );
             return response.data as UserData;
         },

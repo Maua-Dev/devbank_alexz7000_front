@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import axios from "axios";
 import Loading from "@components/Loading";
+import { useApiResult } from "../../services/queryClient.ts";
 
 type HistoryData = {
     all_transactions: [
@@ -18,7 +19,7 @@ export default function Cards() {
         "historyDataAWS",
         async () => {
             const response = await axios.get(
-                "https://r2tcz6zsokynb72jb6o4ffd5nm0ryfyz.lambda-url.us-west-2.on.aws/history"
+                `${useApiResult()}/history` // eslint-disable-line
             );
             return response.data as HistoryData;
         }

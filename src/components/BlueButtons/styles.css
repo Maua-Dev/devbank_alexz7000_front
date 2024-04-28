@@ -12,3 +12,8 @@
 .button-animation:hover {
     transform: scale(1.05);
 }
+
+.aumentar-botao {
+    width: 250%;
+    margin-left: -75%;
+}

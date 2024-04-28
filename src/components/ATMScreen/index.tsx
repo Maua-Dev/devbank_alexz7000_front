@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { UserData } from "@components/Header";
 import Loading from "@components/Loading";
+import { useApiResult } from "../../services/queryClient.ts";
 
 interface ATMScreenProps {
     isDeposit: boolean;
@@ -23,9 +24,7 @@ export default function ATMScreen({ isDeposit }: ATMScreenProps) {
     const { data, isFetching } = useQuery<UserData>(
         "userDataAWS",
         async () => {
-            const response = await axios.get(
-                "https://r2tcz6zsokynb72jb6o4ffd5nm0ryfyz.lambda-url.us-west-2.on.aws"
-            );
+            const response = await axios.get(`${useApiResult()}`);
             return response.data as UserData;
         },
         {
@@ -40,9 +39,7 @@ export default function ATMScreen({ isDeposit }: ATMScreenProps) {
     const postTransaction = async (transactionData: object) => {
         return axios
             .post(
-                `https://r2tcz6zsokynb72jb6o4ffd5nm0ryfyz.lambda-url.us-west-2.on.aws${
-                    isDeposit ? "/deposit" : "/withdraw"
-                }`,
+                `${useApiResult()}${isDeposit ? "/deposit" : "/withdraw"}`,
                 transactionData
             )
             .then((response) => {
@@ -190,7 +187,7 @@ export default function ATMScreen({ isDeposit }: ATMScreenProps) {
                     className={"row w-100 h-100 align-content-center"}
                     style={{ backgroundColor: "rgba(0, 115, 230, 0.25)" }}
                 >
-                    <div className={"col-sm-4 "}>
+                    <div className={"col-sm-4"}>
                         {dataArray?.map((info, index) => (
                             <h3
                                 key={"h3 " + index}
